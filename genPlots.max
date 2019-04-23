@@ -1,0 +1,62 @@
+block([], 
+
+/* OUT_DIR: "r:/aaa", */ 
+MEDIA_DIR: "./media", 
+OUT_FILE: "./table.html", 
+
+ms: [0.1, 0.5, 1, 2, 10], 
+
+rr(a, b) := a * b / (a + b), 
+
+plots: delete(nil, [
+  /* trivial pure potentiometer for reference */
+  ["r_r", x,  1 - x], 
+  ["r_m", x,  m], 
+  ["m_r", m,  x], 
+  ["rm_r", rr(x, m),  1 - x], 
+  ["r_rm", x,  rr(1 - x, m)],  
+  /* ["r+m_r", x + m,  1 - x] */ 
+  /* ["r_r+m", x,  1 - x + m] */
+  nil
+]), 
+
+load("operatingsystem"), 
+
+chdir(OUT_DIR), 
+
+out: openw(OUT_FILE), 
+
+/* table header */
+printf(out, "<tr>~%"), 
+printf(out, "<th>~%"), 
+for m in ms do block([],
+  printf(out, "<th>m = ~f~%", m)
+),  
+
+plotOut(f, plotFile) := block([], 
+  plot2d(f,
+    [x, 0,  1],
+    [svg_file, plotFile],
+    [xlabel, ""],
+    [ylabel, ""],
+    [gnuplot_svg_term_command, "set terminal svg size 320,200 fname 'Verdana' fsize 10"]
+  )
+), 
+
+for plot in plots do block([prefix, lr, hr], 
+  prefix: plot[1], 
+  lr: plot[2], 
+  hr: plot[3], 
+  
+  printf(out, "  <tr>~%"), 
+  printf(out, "    <td><img src=~a/~a_sch.svg>~%", MEDIA_DIR, prefix), 
+  
+  for m in ms do block([plotFile], 
+    plotFile: printf(false, "~a/~a_~f.svg", MEDIA_DIR, prefix, m), 
+    plotOut(lr / (lr + hr), plotFile), 
+    printf(out, "<td><img src=~a>~%", plotFile)
+  )
+), 
+
+close(out)
+);

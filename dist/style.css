@@ -1,0 +1,26 @@
+body {
+  margin: 10px;
+}
+
+h1 {
+  font-size: 48pt;
+}
+.main-table {
+  border-collapse: collapse;
+}
+
+.main-table td, .main-table th {
+  border: 2px solid black;
+}
+
+.github-corner {
+  display: block;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+@media print {
+  .github-corner {
+    display: none;
+  }
+}
