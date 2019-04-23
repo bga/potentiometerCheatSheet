@@ -20,7 +20,7 @@ h1 {
   top: 0;
 }
 @media print {
-  .github-corner {
+  .github-corner, #footer {
     display: none;
   }
 }
