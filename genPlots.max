@@ -59,5 +59,12 @@ for plot in plots do block([prefix, lr, hr],
   )
 ), 
 
+/* table footer */
+printf(out, "<tr>~%"), 
+printf(out, "<th>~%"), 
+for m in ms do block([],
+  printf(out, "<th>m = ~f~%", m)
+),  
+
 close(out)
 );
