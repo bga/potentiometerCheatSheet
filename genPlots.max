@@ -15,6 +15,7 @@ plots: delete(nil, [
   ["m_r", m,  x], 
   ["rm_r", rr(x, m),  1 - x], 
   ["r_rm", x,  rr(1 - x, m)],  
+  ["rm_rm", rr(x, m),  rr(1 - x, m)],  
   /* ["r+m_r", x + m,  1 - x] */ 
   /* ["r_r+m", x,  1 - x + m] */
   nil
