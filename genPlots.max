@@ -8,6 +8,18 @@ ms: [0.1, 0.5, 1, 2, 10],
 
 rr(a, b) := a * b / (a + b), 
 
+/* [http://benholmes.co.uk/posts/2017/11/logarithmic-potentiometer-laws] */
+rLogGeneric(x, mid) := block([a, b], 
+  b: (1 / mid - 1) ** 2, 
+  a: 1 / (b - 1),  
+
+  a * b ** x - a
+),
+/* '' - force preevaluation */
+rLog(x) := ''rLogGeneric(x, 0.15), 
+rAntiLog(x) := ''rLogGeneric(x, 0.85), 
+
+
 plots: delete(nil, [
   /* trivial pure potentiometer for reference */
   ["r_r", x,  1 - x], 
